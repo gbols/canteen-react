@@ -1,5 +1,13 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import { ToastContainer, toast } from "react-toastify";
 import App from "./components/App.js";
+import "react-toastify/dist/ReactToastify.css";
 
-ReactDOM.render(<App />, document.getElementById("root"));
+ReactDOM.render(
+  <div>
+    <App />
+    <ToastContainer />
+  </div>,
+  document.getElementById("root")
+);

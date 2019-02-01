@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import LogoutNav from "./LogoutNav";
 import LoginNav from "./LoginNav";
 
@@ -7,11 +8,14 @@ class Navbar extends React.Component {
     return (
       <nav className="navbar">
         <h1>
-          <a href="#">Fast Food Fast</a>
+          <Link to="/">Fast Food Fast</Link>
         </h1>
         <menu>
-          <LogoutNav {...this.props} />
-          {/* <LoginNav /> */}
+          {this.props.isLoggedIn ? (
+            <LoginNav checkisLoggedInState={this.props.checkisLoggedInState} />
+          ) : (
+            <LogoutNav {...this.props} />
+          )}
           <div id="mySidenav" className="sidenav">
             <a href="" className="closebtn">
               &times;

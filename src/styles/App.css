@@ -417,7 +417,7 @@ hr {
   }
 }
 
-#login-spinner > img,
+/* #login-spinner > img,
 #signup-spinner > img,
 #homepage-spinner > img,
 #admin-login-spinner > img,
@@ -427,7 +427,7 @@ hr {
   position: relative;
   padding-top: 10px;
   margin: 10px auto 5px auto;
-}
+} */
 .state {
   display: inline;
 }
@@ -566,4 +566,11 @@ hr {
   height: 220px;
   background-size: cover;
   position: relative;
+}
+
+.auth--spinner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: -10%;
 }
