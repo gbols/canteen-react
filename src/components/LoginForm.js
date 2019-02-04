@@ -1,9 +1,30 @@
 import React from "react";
+import Loader from "react-loader-spinner";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
-class LoginForm extends React.Component {
-  handleSubmit = e => {
+export class LoginForm extends React.Component {
+  passWord = React.createRef();
+  userName = React.createRef();
+  handleSubmit = async e => {
     e.preventDefault();
-    console.log("the login form was clicked");
+    const user = {
+      password: this.passWord.current.value,
+      username: this.userName.current.value
+    };
+    await this.props.login(user);
+
+    if (!this.props.isLoginError) {
+      const notify = () => toast.success(`${this.props.loginRes.message}`);
+      notify();
+      localStorage.setItem("token", this.props.loginRes.token);
+      this.props.checkisLoggedInState();
+      this.props.changeLoginModal();
+    } else {
+      const notify = () =>
+        toast.error(`${this.props.loginRes.response.data.message}`);
+      notify();
+    }
   };
   render() {
     return (
@@ -21,12 +42,13 @@ class LoginForm extends React.Component {
             <p>Please fill in this form to Log in to your account.</p>
             <hr />
             <label htmlFor="email">
-              <b>Email</b>
+              <b>User Name</b>
             </label>
             <input
               type="text"
-              placeholder="Enter Email"
-              name="email"
+              placeholder="Enter Username"
+              ref={this.userName}
+              name="username"
               required="required"
             />
             <label htmlFor="psw">
@@ -35,6 +57,7 @@ class LoginForm extends React.Component {
             <input
               type="password"
               placeholder="Enter Password"
+              ref={this.passWord}
               name="psw"
               required="required"
             />
@@ -52,6 +75,11 @@ class LoginForm extends React.Component {
             </div>
           </div>
         </form>
+        {this.props.isLogLoading && (
+          <div className="auth--spinner">
+            <Loader type="Puff" color="#00BFFF" height="100" width="100" />
+          </div>
+        )}
       </div>
     );
   }

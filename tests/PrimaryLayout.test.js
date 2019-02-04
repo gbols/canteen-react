@@ -43,6 +43,13 @@ describe("## Primary Layout Componenet", () => {
     container.at(0).simulate("click");
     expect(wrapper.instance().changeSignupModal()).toBeCalled;
   });
+
+  it("should check the Logged In state", () => {
+    wrapper.setState({ isLoggedIn: true });
+    const container = wrapper.find("Navbar");
+    container.at(0).simulate("click");
+    expect(wrapper.instance().checkisLoggedInState()).toBeCalled;
+  });
 });
 
 describe("## articlesResponse", () => {
