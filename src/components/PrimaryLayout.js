@@ -45,7 +45,11 @@ export class PrimaryLayout extends React.Component {
             </header>
             <main>
               {this.state.signupModal ? (
-                <SignupForm changeSignupModal={this.changeSignupModal} />
+                <SignupForm
+                  {...this.props}
+                  checkisLoggedInState={this.checkisLoggedInState}
+                  changeSignupModal={this.changeSignupModal}
+                />
               ) : null}
               {this.state.loginModal ? (
                 <LoginForm

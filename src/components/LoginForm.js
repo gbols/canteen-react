@@ -12,9 +12,10 @@ export class LoginForm extends React.Component {
       password: this.passWord.current.value,
       username: this.userName.current.value
     };
-    await this.props.login(user);
-
+    console.log("ooopss ");
+    console.log(isLoginError);
     if (!this.props.isLoginError) {
+      await this.props.login(user);
       const notify = () => toast.success(`${this.props.loginRes.message}`);
       notify();
       localStorage.setItem("token", this.props.loginRes.token);

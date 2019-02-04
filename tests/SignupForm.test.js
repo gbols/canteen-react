@@ -1,29 +1,26 @@
-import { shallow } from "enzyme";
 import React from "react";
+import { shallow } from "enzyme";
 
-import { LoginForm } from "../src/components/LoginForm";
+import { SignupForm } from "../src/components/SignupForm";
 
-describe("## Login Component", () => {
+describe("### Signup Comopnent", () => {
   let wrapper;
   const props = {
-    login: jest.fn(),
-    isLoggedInSuccess: false,
-    isLogLoading: false,
-    changeLoginModal: jest.fn(),
+    signUp: jest.fn(),
     checkisLoggedInState: jest.fn(),
-    handleSubmit: jest.fn(),
-    loginRes: {
-      message: "sucessful"
-    }
+    changeSignupModal: jest.fn(),
+    signUpRes: {
+      token: "gfbjvsdkjsv"
+    },
+    isSignUpLoading: false
   };
 
-  beforeAll(() => {
-    LoginForm.refs = { password: "something" };
-    wrapper = shallow(<LoginForm {...props} />);
+  beforeEach(() => {
+    wrapper = shallow(<SignupForm {...props} />);
   });
 
   it("should render a Loader Component", () => {
-    wrapper.setProps({ isLogLoading: true });
+    wrapper.setProps({ isSignUpLoading: true });
   });
 
   it("Should simulate a click event on the close modal function", () => {
@@ -38,11 +35,11 @@ describe("## Login Component", () => {
     expect(wrapper.instance().changeLoginModal).toBeCalled;
   });
 
-  it("Should simulate a submit event on form submission", async () => {
+  it("Should simulate a submit event on form submission", () => {
     const e = {
       preventDefault: jest.fn()
     };
-    wrapper.setProps({ isLoggedInError: true });
+    wrapper.setProps({ isLoggedInSuccess: true });
     const container = wrapper.find("form");
     container.at(0).simulate("submit");
     expect(wrapper.instance().handleSubmit(e)).toBeCalled;
