@@ -240,7 +240,7 @@ time {
 .num {
   font-weight: lighter;
   font-size: 1.6em;
-  padding-left: 5px;
+  padding: 0 5px;
   color: #f44336;
 }
 .admin {

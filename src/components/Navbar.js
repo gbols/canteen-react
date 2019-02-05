@@ -11,8 +11,12 @@ class Navbar extends React.Component {
           <Link to="/">Fast Food Fast</Link>
         </h1>
         <menu>
-          {this.props.isLoggedIn ? (
-            <LoginNav checkisLoggedInState={this.props.checkisLoggedInState} />
+          {this.props.user ? (
+            <LoginNav
+              {...this.props}
+              cartItems={this.props.cartItems}
+              checkisLoggedInState={this.props.checkisLoggedInState}
+            />
           ) : (
             <LogoutNav {...this.props} />
           )}
