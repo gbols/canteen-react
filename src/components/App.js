@@ -4,6 +4,7 @@ import Main from "./Main";
 import UsersPage from "./UsersPage";
 import CartPage from "./CartPage";
 import { Provider } from "react-redux";
+import { user } from "../helpers/helpers";
 import "../styles/App.css";
 
 import store from "../store";
@@ -14,9 +15,19 @@ class App extends Component {
       <Provider store={store}>
         <BrowserRouter>
           <Switch>
-            <Route exact path="/" component={Main} />
-            <Route path="/user" component={UsersPage} />
-            <Route path="/cart" component={CartPage} />
+            <Route
+              exact
+              path="/"
+              render={props => <Main {...props} user={user} />}
+            />
+            <Route
+              path="/user"
+              render={props => <UsersPage {...props} user={user} />}
+            />
+            <Route
+              path="/cart"
+              render={props => <CartPage {...props} user={user} />}
+            />
           </Switch>
         </BrowserRouter>
       </Provider>

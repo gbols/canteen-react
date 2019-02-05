@@ -1,23 +1,51 @@
 import React from "react";
 
-const Order = () => (
+const Order = props => (
   <div className="food">
-    <img src="https://res.cloudinary.com/daj3mflah/image/upload/v1538707203/emapkvg6whfgi0ge759w.jpg" />
+    <div
+      className="hero-image"
+      style={{ backgroundImage: `url(${props.order.imageurl})` }}
+    />
     <div className="cover cover-content">
       <div className="name-price">
-        <h4>Beans and Yam</h4>
-        <h4>#850</h4>
+        <h4>{props.order.menutitle}</h4>
+        <h4>&#8358; {props.order.price}</h4>
       </div>
-      <p>Iyan is made from pounding yam repeatedly with a club like cooking</p>
+      <div className="name-price">
+        <h4>
+          UP
+          <span
+            onClick={() => props.addToOrder(props.order.menuid)}
+            className="num"
+          >
+            &#x2b;
+          </span>
+        </h4>
+        <h4>
+          <span
+            onClick={() => props.removeFromOrder(props.order.menuid)}
+            className="num"
+          >
+            &#x2212;
+          </span>
+          DOWN
+        </h4>
+      </div>
       <span className="name-price">
         <h4>
-          Unit Sum<time className="num">6800</time>
+          Unit Sum &#8358;
+          <time className="num">
+            {props.order.quantity * props.order.price}
+          </time>
         </h4>
         <h4>
-          Quantity <span className="num"> 8</span>
+          Quantity <span className="num">{props.order.quantity}</span>
         </h4>
       </span>
-      <button id="1" className="remove-from-cart">
+      <button
+        onClick={() => props.removeCartItem(props.order.menuid)}
+        className="remove-from-cart"
+      >
         REMOVE
       </button>
     </div>

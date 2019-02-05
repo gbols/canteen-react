@@ -10,7 +10,11 @@ export class PrimaryLayout extends React.Component {
   state = {
     loginModal: false,
     signupModal: false,
-    isLoggedIn: localStorage.getItem("token") || false
+    isLoggedIn: localStorage.getItem("token") || false,
+    cartItems: localStorage.getItem("orders")
+      ? JSON.parse(localStorage.getItem("orders")).length
+      : 0,
+    orders: []
   };
   changeLoginModal = () => {
     this.setState({ loginModal: !this.state.loginModal });
@@ -21,8 +25,22 @@ export class PrimaryLayout extends React.Component {
   checkisLoggedInState = () => {
     this.setState({ isLoggedIn: localStorage.getItem("token") || false });
   };
-  componentDidMount() {
-    this.props.fetchMenu();
+  addToOrder = index => {
+    const orders = [...this.state.orders];
+    const newOrder = orders.find(order => order.menuid === index);
+    if (!newOrder) {
+      orders.push({ menuid: index, quantity: 1 });
+      this.setState({ orders });
+      localStorage.setItem("orders", JSON.stringify(orders));
+      this.setState({
+        cartItems: JSON.parse(localStorage.getItem("orders")).length
+      });
+    }
+  };
+
+  async componentDidMount() {
+    await this.props.fetchMenu();
+    localStorage.setItem("menus", JSON.stringify(this.props.response.menus));
   }
 
   render() {
@@ -37,6 +55,7 @@ export class PrimaryLayout extends React.Component {
             <header>
               <Navbar
                 {...this.props}
+                cartItems={this.state.cartItems}
                 isLoggedIn={this.state.isLoggedIn}
                 changeLoginModal={this.changeLoginModal}
                 changeSignupModal={this.changeSignupModal}
@@ -91,7 +110,7 @@ export class PrimaryLayout extends React.Component {
                 <h2>DISCOVER OUR MENU</h2>
                 <div className="all-foods">
                   {(this.props.response.menus || []).map((menu, i) => (
-                    <Menu key={i} {...menu} />
+                    <Menu key={i} addToOrder={this.addToOrder} {...menu} />
                   ))}
                 </div>
               </div>
