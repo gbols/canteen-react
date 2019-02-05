@@ -1,0 +1,9 @@
+{
+  "addons": [],
+  "buildpacks": [],
+  "env": {},
+  "formation": {},
+  "name": "canteen-react",
+  "scripts": {},
+  "stack": "heroku-18"
+}
