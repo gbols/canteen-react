@@ -1,8 +1,8 @@
 import jwtDecode from "jwt-decode";
 
-export const calTotal = arr => {
-  return arr.reduce((acc, cur) => acc + cur.quantity * cur.price, 0);
-};
+export const calTotal = arr =>
+  arr.reduce((acc, cur) => acc + cur.quantity * cur.price, 0);
+
 export const combine = (menus, orders) => {
   let arr = [];
   orders.forEach(order => {
@@ -31,9 +31,8 @@ export const dateParser = theDate => {
   return `${day}-${month}-${year}`;
 };
 
-const decoder = () => {
+export const user = (() => {
   const token = localStorage.getItem("token");
-  if (token) jwtDecode(token);
+  if (token) return jwtDecode(token);
   else null;
-};
-export const user = decoder();
+})();

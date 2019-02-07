@@ -5,7 +5,7 @@ class LoginNav extends React.Component {
   handleSignOut = e => {
     e.preventDefault();
     localStorage.removeItem("token");
-    this.props.checkisLoggedInState();
+    location.reload();
   };
 
   render() {

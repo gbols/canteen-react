@@ -8,6 +8,8 @@ describe("## Primary Layout Componenet", () => {
   const props = {
     isLoading: false,
     fetchMenu: jest.fn(),
+    orders: [],
+    cartItems: [],
     response: {
       menus: [{ menu: "45" }]
     }
@@ -49,6 +51,10 @@ describe("## Primary Layout Componenet", () => {
     const container = wrapper.find("Navbar");
     container.at(0).simulate("click");
     expect(wrapper.instance().checkisLoggedInState()).toBeCalled;
+  });
+
+  it("should call the addToOrder function", () => {
+    expect(wrapper.instance().addToOrder(1)).toBeCalled;
   });
 });
 

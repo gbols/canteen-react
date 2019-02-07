@@ -30,6 +30,7 @@ export class SignupForm extends React.Component {
       localStorage.setItem("token", this.props.signUpRes.token);
       this.props.checkisLoggedInState();
       this.props.changeSignupModal();
+      location.reload();
     }
   };
   render() {

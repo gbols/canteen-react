@@ -417,17 +417,6 @@ hr {
   }
 }
 
-/* #login-spinner > img,
-#signup-spinner > img,
-#homepage-spinner > img,
-#admin-login-spinner > img,
-#meal-spinner > img,
-#order-spinner > img {
-  display: none;
-  position: relative;
-  padding-top: 10px;
-  margin: 10px auto 5px auto;
-} */
 .state {
   display: inline;
 }
@@ -573,4 +562,7 @@ hr {
   justify-content: center;
   align-items: center;
   margin-top: -10%;
+}
+.alter {
+  cursor: pointer;
 }
