@@ -17,8 +17,9 @@ export class LoginForm extends React.Component {
       const notify = () => toast.success(`${this.props.loginRes.message}`);
       notify();
       localStorage.setItem("token", this.props.loginRes.token);
-      this.props.checkisLoggedInState();
+      // this.props.checkisLoggedInState();
       this.props.changeLoginModal();
+      location.reload();
     } else {
       const notify = () =>
         toast.error(`${this.props.loginRes.response.data.message}`);

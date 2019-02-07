@@ -6,15 +6,29 @@ import { ToastContainer, toast } from "react-toastify";
 import Navbar from "./Navbar";
 import Order from "./Order";
 import Footer from "./Footer";
+import LoginForm from "./LoginForm";
+import SignupForm from "./SignupForm";
+import loginCreators from "../actions/loginCreators";
+import signupCreators from "../actions/signupCreators";
 import postOrderCreators from "../actions/postOrderCreators";
 import * as helpers from "../helpers/helpers";
 import "react-toastify/dist/ReactToastify.css";
 
-class cartPage extends React.Component {
+export class CartPage extends React.Component {
   state = {
+    loginModal: false,
+    signupModal: false,
     total: 0,
     orders: []
   };
+
+  changeLoginModal = () => {
+    this.setState({ loginModal: !this.state.loginModal });
+  };
+  changeSignupModal = () => {
+    this.setState({ signupModal: !this.state.signupModal });
+  };
+
   addToOrder = async newOrder => {
     let index;
     const orders = JSON.parse(localStorage.getItem("orders"));
@@ -80,23 +94,28 @@ class cartPage extends React.Component {
     const order = {
       myOrders: JSON.parse(localStorage.getItem("orders"))
     };
-    await this.props.postOrder(order);
-    if (this.props.success) {
-      const notify = () => toast.success(`order was successfully created!`);
-      notify();
-      localStorage.removeItem("orders");
-      await this.setState({
-        orders: helpers.combine(
-          JSON.parse(localStorage.getItem("menus")),
-          localStorage.getItem("orders")
-            ? JSON.parse(localStorage.getItem("orders"))
-            : []
-        )
-      });
-      await this.setState({ total: helpers.calTotal(this.state.orders) });
+    if (localStorage.getItem("token")) {
+      await this.props.postOrder(order);
+      if (this.props.success) {
+        const notify = () => toast.success(`order was successfully created!`);
+        notify();
+        localStorage.removeItem("orders");
+        await this.setState({
+          orders: helpers.combine(
+            JSON.parse(localStorage.getItem("menus")),
+            localStorage.getItem("orders")
+              ? JSON.parse(localStorage.getItem("orders"))
+              : []
+          )
+        });
+        await this.setState({ total: helpers.calTotal(this.state.orders) });
+      } else {
+        const notify = () =>
+          toast.error(`something went wrong while placing the order`);
+        notify();
+      }
     } else {
-      const notify = () =>
-        toast.error(`something went wrong while placing the order`);
+      const notify = () => toast(`Login to place an order !!...`);
       notify();
     }
   };
@@ -125,6 +144,20 @@ class cartPage extends React.Component {
             checkisLoggedInState={this.checkisLoggedInState}
           />
         </header>
+        {this.state.signupModal ? (
+          <SignupForm
+            {...this.props}
+            checkisLoggedInState={this.checkisLoggedInState}
+            changeSignupModal={this.changeSignupModal}
+          />
+        ) : null}
+        {this.state.loginModal ? (
+          <LoginForm
+            {...this.props}
+            checkisLoggedInState={this.checkisLoggedInState}
+            changeLoginModal={this.changeLoginModal}
+          />
+        ) : null}
         {this.state.total ? (
           <div>
             <main>
@@ -169,13 +202,18 @@ class cartPage extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  ...state.postOrder
+  ...state.postOrder,
+  ...state.login,
+  ...state.signUp
 });
 
 export const mapDispatchToProps = dispatch =>
-  bindActionCreators(postOrderCreators, dispatch);
+  bindActionCreators(
+    { ...postOrderCreators, ...loginCreators, ...signupCreators },
+    dispatch
+  );
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(cartPage);
+)(CartPage);

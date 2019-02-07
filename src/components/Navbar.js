@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import LogoutNav from "./LogoutNav";
 import LoginNav from "./LoginNav";
 
-class Navbar extends React.Component {
+export class Navbar extends React.Component {
   render() {
     return (
       <nav className="navbar">
@@ -18,7 +18,11 @@ class Navbar extends React.Component {
               checkisLoggedInState={this.props.checkisLoggedInState}
             />
           ) : (
-            <LogoutNav {...this.props} />
+            <LogoutNav
+              changeSignupModal={this.changeSignupModal}
+              changeLoginModal={this.changeLoginModal}
+              {...this.props}
+            />
           )}
           <div id="mySidenav" className="sidenav">
             <a href="" className="closebtn">

@@ -17,8 +17,7 @@ describe("## Login Component", () => {
     }
   };
 
-  beforeAll(() => {
-    LoginForm.refs = { password: "something" };
+  beforeEach(() => {
     wrapper = shallow(<LoginForm {...props} />);
   });
 

@@ -16,7 +16,7 @@ const Order = props => (
           UP
           <span
             onClick={() => props.addToOrder(props.order.menuid)}
-            className="num"
+            className="num alter"
           >
             &#x2b;
           </span>
@@ -24,7 +24,7 @@ const Order = props => (
         <h4>
           <span
             onClick={() => props.removeFromOrder(props.order.menuid)}
-            className="num"
+            className="num alter"
           >
             &#x2212;
           </span>
