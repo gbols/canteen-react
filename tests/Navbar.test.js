@@ -12,8 +12,10 @@ describe("## Navbar Component", () => {
   };
 
   beforeEach(() => {
-    wrapper = shallow(<Navbar />);
+    wrapper = shallow(<Navbar {...props} />);
   });
 
-  it("should render a fo", () => {});
+  it("should render a loginNav component", () => {
+    wrapper.setProps({ user: "gbols" });
+  });
 });

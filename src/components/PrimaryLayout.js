@@ -5,6 +5,8 @@ import LoginForm from "./LoginForm";
 import SignupForm from "./SignupForm";
 import Footer from "./Footer";
 import Loader from "react-loader-spinner";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export class PrimaryLayout extends React.Component {
   state = {
@@ -29,6 +31,8 @@ export class PrimaryLayout extends React.Component {
     const orders = [...this.state.orders];
     const newOrder = orders.find(order => order.menuid === index);
     if (!newOrder) {
+      const notify = () => toast.success("added!....");
+      notify();
       orders.push({ menuid: index, quantity: 1 });
       this.setState({ orders });
       localStorage.setItem("orders", JSON.stringify(orders));

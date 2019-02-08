@@ -25,6 +25,10 @@ describe("## Login Component", () => {
     wrapper.setProps({ isLogLoading: true });
   });
 
+  // it("should call the login function", () => {
+  //   wrapper.setProps({ isLoginError: true });
+  // });
+
   it("Should simulate a click event on the close modal function", () => {
     const container = wrapper.find("span.close");
     container.at(0).simulate("click");
@@ -41,9 +45,18 @@ describe("## Login Component", () => {
     const e = {
       preventDefault: jest.fn()
     };
-    wrapper.setProps({ isLoggedInError: true });
-    const container = wrapper.find("form");
-    container.at(0).simulate("submit");
-    expect(wrapper.instance().handleSubmit(e)).toBeCalled;
+    const spy = jest.fn();
+    wrapper.setProps({
+      isLoginError: false,
+      login: spy,
+      loginRes: {
+        token: "token",
+        message: "message"
+      },
+      changeLoginModal: jest.fn()
+    });
+    window.location.reload = jest.fn();
+    wrapper.instance().handleSubmit(e);
+    expect(spy).toBeCalled;
   });
 });

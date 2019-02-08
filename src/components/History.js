@@ -1,7 +1,7 @@
 import React from "react";
 import { dateParser, calTotal } from "../helpers/helpers";
 
-class History extends React.Component {
+export class History extends React.Component {
   render() {
     return (
       <li className="table-row">

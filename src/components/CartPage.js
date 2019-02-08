@@ -201,7 +201,7 @@ export class CartPage extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({
+export const mapStateToProps = state => ({
   ...state.postOrder,
   ...state.login,
   ...state.signUp
