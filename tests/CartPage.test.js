@@ -77,6 +77,7 @@ describe("### Cart Page Comopnent", () => {
   it("should dispatch an action", () => {
     const state = {
       postOrder: {},
+      lala: {},
       login: {},
       signUp: {}
     };
