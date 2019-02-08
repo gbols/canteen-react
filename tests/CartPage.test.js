@@ -23,6 +23,11 @@ describe("### Cart Page Comopnent", () => {
     expect(container.length).toEqual(1);
   });
 
+  it("should render a Navbar component", () => {
+    const container = wrapper.find("Footer");
+    expect(container.length).toEqual(1);
+  });
+
   it("should render a SignupForm component", () => {
     wrapper.setState({ signupModal: true });
     const container = wrapper.find("SignupForm");
